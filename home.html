@@ -90,7 +90,7 @@
     function findMovie(e) {
       e.preventDefault();
       let searchkey = document.getElementById('search-bar').value;
-      let url = `http://www.omdbapi.com/?t=${searchkey}&apikey=11aa1054`
+      let url = `https://www.omdbapi.com/?t=${searchkey}&apikey=11aa1054`
       fetch(url).then(res => { return res.json() }).then(data => {
         if (data.Response === 'False') {
           let searchCard = document.getElementById('searchCard');
