@@ -53,36 +53,39 @@
   <script>
     function signup(e) {
       e.preventDefault();
-      console.log("hhhhhh");
       let email = document.getElementById("typeEmailX-2").value;
       let pass = document.getElementById("typePasswordX-2").value;
       let conPass = document.getElementById("typePasswordX").value;
       console.log(email + pass + conPass);
       if (pass === conPass) {
-        let signurl = "https://mobtube.herokuapp.com/app/user/signup";
-        // let signurl = "http://localhost:1500/app/user/signup";
-        let data = {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: email,
-            password: pass
-          })
-        }
-
-        fetch(signurl, data).then(res => { return res.json() }).then((data) => {
-          console.log(data)
-          if (data.result) {
-            localStorage.setItem('mobtube-email',data.email);
-            localStorage.setItem('mobtube-movieData',JSON.stringify(data.movieData));
-
-            location.href = "./index.html"
-          } else {
-            alert(data.message)
+        if (pass.length < 6) {
+          alert('Password should minimum of 6 length');
+        } else {
+          let signurl = "https://mobtube.herokuapp.com/app/user/signup";
+          // let signurl = "http://localhost:1500/app/user/signup";
+          let data = {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email: email,
+              password: pass
+            })
           }
-        });
+
+          fetch(signurl, data).then(res => { return res.json() }).then((data) => {
+            console.log(data)
+            if (data.result) {
+              localStorage.setItem('mobtube-email', data.email);
+              localStorage.setItem('mobtube-movieData', JSON.stringify(data.movieData));
+
+              location.href = "./home.html"
+            } else {
+              alert(data.message)
+            }
+          });
+        }
       }
       else {
         alert("Passwords doesn't match");
